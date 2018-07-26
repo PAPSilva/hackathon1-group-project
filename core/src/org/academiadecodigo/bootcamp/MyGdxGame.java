@@ -1,33 +1,43 @@
 package org.academiadecodigo.bootcamp;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Game;
+import org.academiadecodigo.bootcamp.views.*;
 
-public class MyGdxGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
+import java.util.HashMap;
+import java.util.Map;
+
+public class MyGdxGame extends Game {
+
+	private LoadingScreen loadingScreen;
+	private Map<Integer, AbstractScreen> screenMap;
+
+
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void create() {
+
+		createScreenMap();
+
+		loadingScreen = new LoadingScreen(this);
+		setScreen(loadingScreen);
 	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
+
+	public void changeScreen(int screen) {
+
+		AbstractScreen abstractScreen = screenMap.get(screen);
+
+		if (abstractScreen == null) {
+			abstractScreen = screenMap.get(screen);
+		}
+		this.setScreen(abstractScreen);
+	}
+
+	private void createScreenMap() {
+
+		screenMap = new HashMap<Integer, AbstractScreen>();
+		screenMap.put(ScreenOptions.MENU.getOption(), new MenuScreen(this));
+		screenMap.put(ScreenOptions.PREFERENCES.getOption(), new PreferencesScreen(this));
+		screenMap.put(ScreenOptions.APPLICATION.getOption(), new GameScreen(this));
+		screenMap.put(ScreenOptions.ENDGAME.getOption(), new EndScreen(this));
 	}
 }

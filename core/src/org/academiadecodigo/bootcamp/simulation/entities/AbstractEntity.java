@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.desktop.simulation.entities;
+package org.academiadecodigo.bootcamp.simulation.entities;
 
 public abstract class AbstractEntity implements Entity {
 

@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.desktop.simulation.fireables;
+package org.academiadecodigo.bootcamp.simulation.fireables;
 
 public class Weapon {
 

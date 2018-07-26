@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.desktop.libgdx.entities;
+package org.academiadecodigo.bootcamp.entities;
 
 import org.academiadecodigo.bootcamp.desktop.simulation.entities.Entity;
 

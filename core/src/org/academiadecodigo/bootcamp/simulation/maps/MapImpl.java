@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.desktop.simulation.maps;
+package org.academiadecodigo.bootcamp.simulation.maps;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 

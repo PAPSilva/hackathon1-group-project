@@ -1,12 +1,12 @@
 package org.academiadecodigo.bootcamp.desktop.simulation.entities;
 
-import org.academiadecodigo.bootcamp.desktop.simulation.fireables.Fireable;
+import org.academiadecodigo.bootcamp.desktop.simulation.fireables.Firable;
 
 public interface Attacker {
 
-    Fireable getWeapon();
+    Firable getWeapon();
 
-    void setWeapon(Fireable fireable);
+    void setWeapon(Firable firable);
 
     void shoot(Hitable hitObject);
 

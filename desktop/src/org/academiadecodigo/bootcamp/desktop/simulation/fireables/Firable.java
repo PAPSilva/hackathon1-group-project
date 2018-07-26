@@ -1,6 +1,6 @@
 package org.academiadecodigo.bootcamp.desktop.simulation.fireables;
 
-public interface Fireable {
+public interface Firable {
 
     void setAmmo(int ammoAmount);
 

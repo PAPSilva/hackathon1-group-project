@@ -17,22 +17,34 @@ public class Controller {
     public void controlEntity() {
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            entity.move(Direction.UP, distantAmount);
+            move(Direction.UP);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            entity.move(Direction.DOWN, distantAmount);
+            move(Direction.DOWN);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            entity.move(Direction.RIGHT, distantAmount);
+            move(Direction.RIGHT);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            entity.move(Direction.LEFT, distantAmount);
+            move(Direction.LEFT);
         }
     }
 
+    private void move(Direction direction) {
+
+        // Move entity
+        entity.move(direction, distantAmount);
+
+        // Move camera TODO move to camera and invoke method here
+        double dx = direction.getX() * distantAmount;
+        double dy = direction.getY() * distantAmount;
+        camera.getCamera().translate((float) dx, (float) dy);
+    }
+
+    // TODO review this method
     public void controlEntity(Hitable hitObject) {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             entity.shoot(hitObject);
@@ -41,6 +53,10 @@ public class Controller {
 
     public void setEntity(Entity entity) {
         this.entity = entity;
+    }
+
+    public void setCamera(GenericCamera camera) {
+        this.camera = camera;
     }
 }
 

@@ -5,10 +5,12 @@ import com.badlogic.gdx.Input;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
 import org.academiadecodigo.bootcamp.simulation.entities.Direction;
 import org.academiadecodigo.bootcamp.simulation.entities.Hitable;
+import org.academiadecodigo.bootcamp.views.camera.GenericCamera;
 
 public class Controller {
 
     private Entity entity;
+    private GenericCamera camera;
 
     private final double distantAmount = 1.0;
 

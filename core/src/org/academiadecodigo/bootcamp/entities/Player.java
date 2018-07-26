@@ -1,6 +1,6 @@
 package org.academiadecodigo.bootcamp.entities;
 
-import org.academiadecodigo.bootcamp.desktop.simulation.entities.Entity;
+import org.academiadecodigo.bootcamp.simulation.entities.Entity;
 
 public class Player {
 

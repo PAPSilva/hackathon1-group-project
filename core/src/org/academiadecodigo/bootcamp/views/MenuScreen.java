@@ -37,7 +37,7 @@ public class MenuScreen extends AbstractScreen implements Screen {
         table.setDebug(true);
         stage.addActor(table);
 
-        Skin skin = new Skin(Gdx.files.internal("C:\\Users\\Henry Wallace\\Desktop\\AC\\hackathon1-group-project\\core\\assets\\skin\\craftacular-ui.json"));
+        Skin skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
 
         newGame = new TextButton("New Game", skin);
         preferences = new TextButton("Game Preferences", skin);
@@ -93,7 +93,9 @@ public class MenuScreen extends AbstractScreen implements Screen {
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+
                 myGdxGame.changeScreen(ScreenOptions.APPLICATION.getOption());
+                myGdxGame.setScreen(new GameScreen(myGdxGame));
             }
         });
 

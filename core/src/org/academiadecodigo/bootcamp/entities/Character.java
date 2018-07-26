@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
 
-public class Player extends Sprite {
+public class Character extends Sprite {
 
     private Entity entity;
     private Texture texture;

@@ -43,9 +43,27 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         player.setEntity(playertEntity);
         player.setTextureFile("hairyMonster.png");
 
+        // Center on camera
+        System.out.println(
+                "Camera before " + genericCamera.getCamera().position.x + ","
+                        + genericCamera.getCamera().position.y
+        );
+        genericCamera.getCamera().position.set(
+                (float) (playertEntity.getX() - Gdx.graphics.getWidth()*0.5),
+                (float) (playertEntity.getY() - Gdx.graphics.getHeight()*0.5),
+                genericCamera.getCamera().position.z);
+        System.out.println(
+                "Camera after " + genericCamera.getCamera().position.x + ","
+                        + genericCamera.getCamera().position.y
+        );
+
+
         controller = new Controller();
-        controller.setEntity(player.getEntity());
+        controller.setCharacter(player);
         controller.setCamera(genericCamera);
+
+        // Test set position of character
+
 
     }
 
@@ -75,22 +93,6 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         batch.end();
 
         super.render();
-    }
-
-    private void cameraController(Camera camera){
-
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            camera.translate(0, 10, 0);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            camera.translate(0, -10, 0);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            camera.translate(-10, 0, 0);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            camera.translate(10, 0, 0);
-        }
     }
 
     @Override

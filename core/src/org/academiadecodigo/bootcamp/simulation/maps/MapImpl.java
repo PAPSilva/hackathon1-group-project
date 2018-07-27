@@ -13,7 +13,7 @@ public class MapImpl implements Map {
     public MapImpl(){
 
         TmxMapLoader loader = new TmxMapLoader();
-        TiledMap map = loader.load("maps/orthomap.tmx");
+        TiledMap map = loader.load("maps/orthomap2.tmx");
         add(map);
 
     }

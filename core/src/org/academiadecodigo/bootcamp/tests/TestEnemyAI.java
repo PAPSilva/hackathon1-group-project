@@ -4,35 +4,42 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import org.academiadecodigo.bootcamp.libgdx.controller.Controller;
 import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
-import org.academiadecodigo.bootcamp.simulation.entities.Direction;
+import org.academiadecodigo.bootcamp.libgdx.sprites.projectables.ProjectileSprite;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
 import org.academiadecodigo.bootcamp.simulation.entities.EntityImpl;
+import org.academiadecodigo.bootcamp.simulation.fireables.Firable;
+import org.academiadecodigo.bootcamp.simulation.fireables.Weapon;
 import org.academiadecodigo.bootcamp.simulation.maps.Map;
 import org.academiadecodigo.bootcamp.simulation.maps.MapImpl;
+import org.academiadecodigo.bootcamp.simulation.projectables.ProjectableType;
 import org.academiadecodigo.bootcamp.views.camera.GenericCamera;
 
-public class TestCharacterAndCameraMovement extends ApplicationAdapter {
+import java.util.ArrayList;
+import java.util.List;
+
+public class TestEnemyAI extends ApplicationAdapter {
 
     private Map maps;
     private TiledMap map;
-    //private IsometricTiledMapRenderer renderer;
     private OrthogonalTiledMapRenderer renderer;
     private GenericCamera genericCamera;
 
     private SpriteBatch batch;
     private Character player;
 
+    private List<Character> enemies = new ArrayList<Character>();
+    private List<ProjectileSprite> projectiles = new ArrayList<ProjectileSprite>();
+
     private Controller controller;
 
-    double oldX;
-    double oldY;
+    private final int ENEMY_NUMBER = 10;
+
 
     @Override
     public void create() {
@@ -41,16 +48,19 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         genericCamera = new GenericCamera();
         super.create();
         map = maps.getMap(0);
-        //renderer = new IsometricTiledMapRenderer(map);
         renderer = new OrthogonalTiledMapRenderer(map);
 
         batch = new SpriteBatch();
         player = new Character();
         Entity playertEntity = new EntityImpl();
+        Firable weapon = new Weapon();
+        weapon.setProjectableType(ProjectableType.BULLET);
+        weapon.setAmmo(5000);
+        playertEntity.setWeapon(weapon);
         player.setEntity(playertEntity);
         player.setTextureFile("hairyMonster.png");
 
-        // Center charater on camera
+        // Center character on camera
         player.setPosition(
                 Gdx.graphics.getWidth()*0.5 - player.getTexture().getWidth()*0.5,
                 Gdx.graphics.getHeight()*0.5 - player.getTexture().getHeight()*0.5
@@ -59,6 +69,8 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         controller = new Controller();
         controller.setCharacter(player);
         controller.setCamera(genericCamera);
+
+        spawnEnemiesRandom();
 
     }
 
@@ -77,40 +89,27 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        int layer = 1;
-        Rectangle playerRect = player.getBoundingRectangle();
-
-
-
-
         renderer.setView(genericCamera.getCamera());
         renderer.render();
-        controller.controlEntity(null);
+        controller.controlEntity(projectiles);
         genericCamera.getCamera().update();
 
-        for (RectangleMapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
-
-            Rectangle rect = ((object).getRectangle());
-
-            if (player.getRectangle().overlaps(rect)) {
-                switch(player.getOldDirection()){
-                    case UP:player.move(Direction.DOWN,5.00);
-                        break;
-                    case DOWN:player.move(Direction.UP,5.00);
-                        break;
-                    case LEFT:player.move(Direction.RIGHT,5.00);
-                        break;
-                    case RIGHT:player.move(Direction.LEFT,5.00);
-                        break;
-                }
-
-            }
-        }
+        // Draw
 
         batch.begin();
+
         batch.draw(player.getTexture(), player.getX(), player.getY());
-        oldX = player.getRectangle().getX();
-        oldY = player.getRectangle().getY();
+
+        for(Character enemy : enemies) {
+            enemy.moveAIbased();
+            batch.draw(enemy.getTexture(), enemy.getX(), enemy.getY());
+        }
+
+        for(ProjectileSprite projectile : projectiles) {
+            projectile.move();
+            batch.draw(projectile.getTexture(), projectile.getX(), projectile.getY());
+        }
+
         batch.end();
 
         super.render();
@@ -124,4 +123,28 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         super.dispose();
     }
 
+    private void spawnEnemiesRandom() {
+
+        for(int i=0; i < ENEMY_NUMBER; i++) {
+
+            Character enemy = new Character();
+            Entity enemyEntity = new EntityImpl();
+            Firable weapon = new Weapon();
+            weapon.setProjectableType(ProjectableType.BULLET);
+            weapon.setAmmo(5000);
+            enemyEntity.setWeapon(weapon);
+            enemy.setEntity(enemyEntity);
+            enemy.setTextureFile("hairyMonster.png");
+
+            enemy.setPosition(
+                    Math.random() * Gdx.graphics.getWidth(),
+                    Math.random() * Gdx.graphics.getHeight()
+            );
+
+            enemies.add(enemy);
+
+        }
+
+
+    }
 }

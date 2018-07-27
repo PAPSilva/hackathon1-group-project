@@ -3,9 +3,8 @@ package org.academiadecodigo.bootcamp.views;
 public enum ScreenOptions {
 
     MENU(0),
-    PREFERENCES(1),
-    APPLICATION(2),
-    ENDGAME(3);
+    APPLICATION(1),
+    ENDGAME(2);
 
     private int option;
 

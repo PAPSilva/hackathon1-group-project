@@ -4,7 +4,7 @@ import org.academiadecodigo.bootcamp.simulation.projectables.ProjectableType;
 
 public enum ProjectileSpriteTypes {
 
-    BULLET(ProjectableType.BULLET, "bullet-31.png");
+    BULLET(ProjectableType.BULLET, "skin/bullet.png");
 
     private ProjectableType projectableType;
     private String textureFile;

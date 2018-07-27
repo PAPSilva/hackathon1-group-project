@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import org.academiadecodigo.bootcamp.MyGdxGame;
 
-import javax.swing.event.ChangeEvent;
+
 
 public class MenuScreen extends AbstractScreen implements Screen {
 
@@ -40,13 +40,10 @@ public class MenuScreen extends AbstractScreen implements Screen {
         Skin skin = new Skin(Gdx.files.internal("skin/craftacular-ui.json"));
 
         newGame = new TextButton("New Game", skin);
-        preferences = new TextButton("Game Preferences", skin);
         exit = new TextButton("Exit", skin);
 
         table.add(newGame).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
-        table.add(preferences).fillX().uniformX();
-        table.row();
         table.add(exit).fillX().uniformX();
 
         setButtonFunction();
@@ -96,13 +93,6 @@ public class MenuScreen extends AbstractScreen implements Screen {
 
                 myGdxGame.changeScreen(ScreenOptions.APPLICATION.getOption());
                 myGdxGame.setScreen(new GameScreen(myGdxGame));
-            }
-        });
-
-        preferences.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                myGdxGame.changeScreen(ScreenOptions.PREFERENCES.getOption());
             }
         });
 

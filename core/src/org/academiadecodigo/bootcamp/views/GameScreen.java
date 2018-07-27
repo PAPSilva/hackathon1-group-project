@@ -176,6 +176,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         renderer.dispose();
         map.dispose();
-        gameMusic.stop();
+       // gameMusic.stop();
     }
 }

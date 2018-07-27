@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import org.academiadecodigo.bootcamp.libgdx.sprites.AbstractSprite;
 import org.academiadecodigo.bootcamp.simulation.entities.Direction;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
@@ -28,7 +27,7 @@ public class Character extends AbstractSprite {
 
 
     private AIType aiType = AIType.RANDOM;
-    private final int RANDOM_TURN_MAX = 6000;
+    private final int RANDOM_TURN_MAX = 60;
     private final double RANDOM_TURN_AMOUNT = 1.5;
 
 

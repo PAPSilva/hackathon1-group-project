@@ -49,7 +49,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private Controller controller;
 
-    private final int ENEMY_NUMBER = 20;
+    private final int ENEMY_NUMBER = 50;
     private final double MAX_PROJECTILE_DIST = 400000.0;
 
     public GameScreen(MyGdxGame myGdxGame) {
@@ -126,23 +126,23 @@ public class GameScreen extends AbstractScreen implements Screen {
                 }
             }
 
-            for(Character r : enemies){
-                if(r.getRectangle().overlaps(rect)){
-
-                    System.out.println("overlapped enemy");
-                    switch(r.getOldDirection()){
-                        case UP:r.setPosition(r.getX(),r.getY()-10);
-                            break;
-                        case DOWN:r.setPosition(r.getX(),r.getY()-10);
-                            break;
-                        case LEFT:r.setPosition(r.getX()+10, r.getY());
-                            break;
-                        case RIGHT:r.setPosition(r.getX()-10,r.getY());
-                            break;
-                    }
-
-                }
-            }
+//            for(Character r : enemies){
+//                if(r.getRectangle().overlaps(rect)){
+//
+//                    System.out.println("overlapped enemy");
+//                    switch(r.getOldDirection()){
+//                        case UP:r.setPosition(r.getX(),r.getY()-10);
+//                            break;
+//                        case DOWN:r.setPosition(r.getX(),r.getY()-10);
+//                            break;
+//                        case LEFT:r.setPosition(r.getX()+10, r.getY());
+//                            break;
+//                        case RIGHT:r.setPosition(r.getX()-10,r.getY());
+//                            break;
+//                    }
+//
+//                }
+//            }
 
         }
 

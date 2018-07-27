@@ -15,7 +15,7 @@ public class Controller {
     private Character character;
     private GenericCamera camera;
 
-    private final double distantAmount = 1.0;
+    private final double distantAmount = 3.0;
 
     public void controlEntity(Array<ProjectileSprite> projectiles) {
 

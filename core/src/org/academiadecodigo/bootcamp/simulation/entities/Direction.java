@@ -17,6 +17,10 @@ public enum Direction {
         this.angle = angle;
     }
 
+    public static Direction getRandom() {
+        return values()[ (int) (Math.random() * values().length) ];
+    }
+
     public double getX() {
         return x;
     }

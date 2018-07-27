@@ -3,6 +3,7 @@ package org.academiadecodigo.bootcamp.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -36,6 +37,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private GenericCamera genericCamera;
     MyGdxGame myGdxGame;
+    private Music musicMenu;
 
     private SpriteBatch batch;
     private Character player;
@@ -54,10 +56,12 @@ public class GameScreen extends AbstractScreen implements Screen {
     }
 
 
-
     @Override
     public void show() {
 
+        musicMenu = Gdx.audio.newMusic(Gdx.files.internal("1.wav"));
+        musicMenu.setLooping(true);
+        musicMenu.play();
         maps = new MapImpl();
         genericCamera = new GenericCamera();
         map = maps.getMap(0);
@@ -79,8 +83,8 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         // Center character on camera
         player.setPosition(
-                Gdx.graphics.getWidth()*0.5 - player.getTexture().getWidth()*0.5,
-                Gdx.graphics.getHeight()*0.5 - player.getTexture().getHeight()*0.5
+                Gdx.graphics.getWidth() * 0.5 - player.getTexture().getWidth() * 0.5,
+                Gdx.graphics.getHeight() * 0.5 - player.getTexture().getHeight() * 0.5
         );
 
         controller = new Controller();
@@ -94,7 +98,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.setView(genericCamera.getCamera());
@@ -108,12 +112,12 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         batch.draw(player.getTexture(), player.getX(), player.getY());
 
-        for(Character enemy : enemies) {
+        for (Character enemy : enemies) {
             enemy.moveAIbased();
             batch.draw(enemy.getTexture(), enemy.getX(), enemy.getY());
         }
 
-        for(ProjectileSprite projectile : projectiles) {
+        for (ProjectileSprite projectile : projectiles) {
             projectile.move();
             batch.draw(projectile.getTexture(), projectile.getX(), projectile.getY());
         }
@@ -124,7 +128,7 @@ public class GameScreen extends AbstractScreen implements Screen {
 
     private void spawnEnemiesRandom() {
 
-        for(int i=0; i < ENEMY_NUMBER; i++) {
+        for (int i = 0; i < ENEMY_NUMBER; i++) {
 
             Character enemy = new Character();
             Entity enemyEntity = new EntityImpl();
@@ -152,7 +156,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     @Override
     public void resize(int width, int height) {
 
-        genericCamera.resize(width,height);
+        genericCamera.resize(width, height);
         genericCamera.getCamera().update();
     }
 
@@ -176,6 +180,6 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         renderer.dispose();
         map.dispose();
-       // gameMusic.stop();
+        musicMenu.stop();
     }
 }

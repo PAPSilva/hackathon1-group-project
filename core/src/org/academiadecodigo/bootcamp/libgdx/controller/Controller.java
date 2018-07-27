@@ -37,6 +37,7 @@ public class Controller {
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             projectiles.add(attack());
+
         }
 
     }

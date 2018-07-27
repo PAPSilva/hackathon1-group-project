@@ -151,6 +151,8 @@ public class Character extends AbstractSprite {
                 (float) (randomAI.getDirection().getY() * RANDOM_TURN_AMOUNT)
         );
         move(randomAI.getDirection(), RANDOM_TURN_AMOUNT);
+        oldDirection=randomAI.getDirection();
+
 
     }
 

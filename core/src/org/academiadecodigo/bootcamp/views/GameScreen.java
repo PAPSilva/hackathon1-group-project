@@ -109,6 +109,43 @@ public class GameScreen extends AbstractScreen implements Screen {
         controller.controlEntity(projectiles);
         genericCamera.getCamera().update();
 
+        for (RectangleMapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
+
+            Rectangle rect = ((object).getRectangle());
+
+            if (player.getRectangle().overlaps(rect)) {
+                switch(player.getOldDirection()){
+                    case UP:player.move(Direction.DOWN,5.00);
+                        break;
+                    case DOWN:player.move(Direction.UP,5.00);
+                        break;
+                    case LEFT:player.move(Direction.RIGHT,5.00);
+                        break;
+                    case RIGHT:player.move(Direction.LEFT,5.00);
+                        break;
+                }
+            }
+
+            for(Character r : enemies){
+                if(r.getRectangle().overlaps(rect)){
+
+                    System.out.println("overlapped enemy");
+                    switch(r.getOldDirection()){
+                        case UP:r.setPosition(r.getX(),r.getY()-10);
+                            break;
+                        case DOWN:r.setPosition(r.getX(),r.getY()-10);
+                            break;
+                        case LEFT:r.setPosition(r.getX()+10, r.getY());
+                            break;
+                        case RIGHT:r.setPosition(r.getX()-10,r.getY());
+                            break;
+                    }
+
+                }
+            }
+
+        }
+
         // Draw
 
         batch.begin();

@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp.libgdx.sprites.entities;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import org.academiadecodigo.bootcamp.libgdx.sprites.AbstractSprite;
 import org.academiadecodigo.bootcamp.simulation.entities.Direction;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
@@ -9,6 +11,11 @@ public class Character extends AbstractSprite {
 
     private Entity entity;
     private RandomAI randomAI = null;
+
+    private String up;
+    private String down;
+    private String left;
+    private String right;
 
     private AIType aiType = AIType.RANDOM;
     private final int RANDOM_TURN_MAX = 60;
@@ -20,6 +27,20 @@ public class Character extends AbstractSprite {
 
     public void move(Direction direction, double amount) {
         entity.move(direction, amount);
+
+        switch (direction) {
+            case UP:
+                setTextureFile(up);
+                break;
+            case LEFT:
+                setTextureFile(left);
+                break;
+            case RIGHT:
+                setTextureFile(right);
+                break;
+            case DOWN:
+                setTextureFile(down);
+        }
     }
 
     public void setPosition(double x, double y) {
@@ -114,4 +135,19 @@ public class Character extends AbstractSprite {
         }
     }
 
+    public void setUp(String up) {
+        this.up = up;
+    }
+
+    public void setDown(String down) {
+        this.down = down;
+    }
+
+    public void setLeft(String left) {
+        this.left = left;
+    }
+
+    public void setRight(String right) {
+        this.right = right;
+    }
 }

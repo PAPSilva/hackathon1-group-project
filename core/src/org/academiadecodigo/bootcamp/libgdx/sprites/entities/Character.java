@@ -38,13 +38,6 @@ public class Character extends AbstractSprite {
         entity.setOrientation(direction.getAngle());
     }
 
-    public float getX() {
-        return (float) entity.getX();
-    }
-
-    public float getY() {
-        return (float) entity.getY();
-    }
 
     public double getOrientation() {
         return entity.getOrientation();

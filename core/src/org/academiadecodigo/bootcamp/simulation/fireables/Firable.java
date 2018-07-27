@@ -6,8 +6,8 @@ public interface Firable {
 
     int getAmmo();
 
-    int getDamage();
+  //  int getDamage();
 
-    void setDamage(int damage);
+   // void setDamage(int damage);
 
 }

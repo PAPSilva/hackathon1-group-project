@@ -2,13 +2,13 @@ package org.academiadecodigo.bootcamp.simulation.entities;
 
 public interface Hitable {
 
-    public void hit(int damage);
+    void hit(int damage);
 
-    public int getHP();
+    int getHP();
 
-    public int getArmour();
+    int getArmour();
 
-    public void setHP(int HPLeft);
+    void setHP(int HPLeft);
 
-    public void setArmour(int armourLeft);
+    void setArmour(int armourLeft);
 }

@@ -4,4 +4,8 @@ public interface Movable {
 
     void move(Direction direction, double amount);
 
+    double getX();
+
+    double getY();
+
 }

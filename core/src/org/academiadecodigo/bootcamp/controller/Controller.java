@@ -2,43 +2,53 @@ package org.academiadecodigo.bootcamp.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import org.academiadecodigo.bootcamp.simulation.entities.Entity;
+import org.academiadecodigo.bootcamp.entities.Character;
 import org.academiadecodigo.bootcamp.simulation.entities.Direction;
-import org.academiadecodigo.bootcamp.simulation.entities.Hitable;
+import org.academiadecodigo.bootcamp.views.camera.GenericCamera;
 
 public class Controller {
 
-    private Entity entity;
+    private Character character;
+    private GenericCamera camera;
 
     private final double distantAmount = 1.0;
 
     public void controlEntity() {
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            entity.move(Direction.UP, distantAmount);
+            move(Direction.UP);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            entity.move(Direction.DOWN, distantAmount);
+            move(Direction.DOWN);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            entity.move(Direction.RIGHT, distantAmount);
+            move(Direction.RIGHT);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            entity.move(Direction.LEFT, distantAmount);
+            move(Direction.LEFT);
         }
     }
 
-    public void controlEntity(Hitable hitObject) {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            entity.shoot(hitObject);
-        }
+    private void move(Direction direction) {
+
+        // Move character
+        character.move(direction, distantAmount);
+
+        // Move camera TODO move to camera and invoke method here
+        double dx = direction.getX() * distantAmount;
+        double dy = direction.getY() * distantAmount;
+        camera.getCamera().translate((float) dx, (float) dy);
     }
 
-    public void setEntity(Entity entity) {
-        this.entity = entity;
+    public void setCharacter(Character character) {
+        this.character = character;
+    }
+
+    public void setCamera(GenericCamera camera) {
+        this.camera = camera;
     }
 }
 

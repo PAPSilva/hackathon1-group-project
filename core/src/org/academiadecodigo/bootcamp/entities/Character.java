@@ -3,6 +3,7 @@ package org.academiadecodigo.bootcamp.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import org.academiadecodigo.bootcamp.simulation.entities.Direction;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
 
 public class Character extends Sprite {
@@ -36,8 +37,18 @@ public class Character extends Sprite {
         texture = new Texture(Gdx.files.internal(textureFile));
     }
 
-    public String getTextureFile() {
-        return textureFile;
+    public void move(Direction direction, double amount) {
+        entity.move(direction, amount);
     }
 
+    public void setPosition(double x, double y) {
+
+        double dx = x - entity.getX();
+        double dy = y - entity.getY();
+
+        move(Direction.RIGHT, dx);
+        move(Direction.UP, dy);
+
+        super.setPosition((float) x, (float) y);
+    }
 }

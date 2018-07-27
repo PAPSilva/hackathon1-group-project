@@ -152,7 +152,5 @@ public class TestEnemyAI extends ApplicationAdapter {
             enemies.add(enemy);
 
         }
-
-
     }
 }

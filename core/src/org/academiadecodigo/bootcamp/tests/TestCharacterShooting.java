@@ -8,13 +8,21 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import org.academiadecodigo.bootcamp.libgdx.controller.Controller;
 import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
+import org.academiadecodigo.bootcamp.libgdx.sprites.projectables.ProjectileSprite;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
 import org.academiadecodigo.bootcamp.simulation.entities.EntityImpl;
+import org.academiadecodigo.bootcamp.simulation.fireables.Firable;
+import org.academiadecodigo.bootcamp.simulation.fireables.Weapon;
 import org.academiadecodigo.bootcamp.simulation.maps.Map;
 import org.academiadecodigo.bootcamp.simulation.maps.MapImpl;
+import org.academiadecodigo.bootcamp.simulation.projectables.ProjectableType;
 import org.academiadecodigo.bootcamp.views.camera.GenericCamera;
 
-public class TestCharacterAndCameraMovement extends ApplicationAdapter {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TestCharacterShooting extends ApplicationAdapter {
 
     private Map maps;
     private TiledMap map;
@@ -23,6 +31,9 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
 
     private SpriteBatch batch;
     private Character player;
+
+    private List<Character> enemies = new ArrayList<Character>();
+    private List<ProjectileSprite> projectiles = new ArrayList<ProjectileSprite>();
 
     private Controller controller;
 
@@ -38,6 +49,10 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         batch = new SpriteBatch();
         player = new Character();
         Entity playertEntity = new EntityImpl();
+        Firable weapon = new Weapon();
+        weapon.setProjectableType(ProjectableType.BULLET);
+        weapon.setAmmo(5000);
+        playertEntity.setWeapon(weapon);
         player.setEntity(playertEntity);
         player.setTextureFile("hairyMonster.png");
 
@@ -71,11 +86,15 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         renderer.setView(genericCamera.getCamera());
         renderer.render();
         //cameraController(genericCamera.getCamera());
-        controller.controlEntity(null);
+        controller.controlEntity(projectiles);
         genericCamera.getCamera().update();
 
         batch.begin();
         batch.draw(player.getTexture(), player.getX(), player.getY());
+        for(ProjectileSprite projectile : projectiles) {
+            projectile.move();
+            batch.draw(projectile.getTexture(), projectile.getX(), projectile.getY());
+        }
         batch.end();
 
         super.render();

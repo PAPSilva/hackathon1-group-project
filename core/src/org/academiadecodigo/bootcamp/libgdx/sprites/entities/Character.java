@@ -1,35 +1,18 @@
 package org.academiadecodigo.bootcamp.libgdx.sprites.entities;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import org.academiadecodigo.bootcamp.libgdx.sprites.AbstractSprite;
 import org.academiadecodigo.bootcamp.simulation.entities.Direction;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
-import org.academiadecodigo.bootcamp.libgdx.sprites.entities.AbstractSprite;
+import org.academiadecodigo.bootcamp.simulation.projectables.Projectable;
 
 public class Character extends AbstractSprite {
 
     private Entity entity;
-    private Texture texture;
-    private String textureFile;
+
     // TODO implement libgdx
 
     public void setEntity(Entity entity) {
         this.entity = entity;
-    }
-
-    @Override
-    public Texture getTexture() {
-        return texture;
-    }
-
-    @Override
-    public void setTexture(Texture texture) {
-        this.texture = texture;
-    }
-
-    public void setTextureFile(String textureFile){
-        this.textureFile = textureFile;
-        texture = new Texture(Gdx.files.internal(textureFile));
     }
 
     public void move(Direction direction, double amount) {
@@ -46,4 +29,33 @@ public class Character extends AbstractSprite {
 
         super.setPosition((float) x, (float) y);
     }
+
+    public Projectable shoot() {
+        return entity.shoot();
+    }
+
+    public void rotate(Direction direction) {
+        entity.setOrientation(direction.getAngle());
+    }
+
+    public float getX() {
+        return (float) entity.getX();
+    }
+
+    public float getY() {
+        return (float) entity.getY();
+    }
+
+    public double getOrientation() {
+        return entity.getOrientation();
+    }
+
+    public void hit(int damage) {
+        entity.hit(damage);
+    }
+
+    public boolean isDead() {
+        return entity.getHP() == 0;
+    }
+
 }

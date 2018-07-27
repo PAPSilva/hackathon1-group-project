@@ -8,4 +8,8 @@ public interface Movable {
 
     double getY();
 
+    double getOrientation();
+
+    void setOrientation(double orientation);
+
 }

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestEnemyAI extends ApplicationAdapter {
-
+git a
     private Map maps;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;

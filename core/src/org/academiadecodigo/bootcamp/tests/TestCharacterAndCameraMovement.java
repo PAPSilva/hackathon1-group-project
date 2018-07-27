@@ -4,10 +4,14 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import org.academiadecodigo.bootcamp.libgdx.controller.Controller;
 import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
+import org.academiadecodigo.bootcamp.simulation.entities.Direction;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
 import org.academiadecodigo.bootcamp.simulation.entities.EntityImpl;
 import org.academiadecodigo.bootcamp.simulation.maps.Map;
@@ -18,13 +22,17 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
 
     private Map maps;
     private TiledMap map;
-    private IsometricTiledMapRenderer renderer;
+    //private IsometricTiledMapRenderer renderer;
+    private OrthogonalTiledMapRenderer renderer;
     private GenericCamera genericCamera;
 
     private SpriteBatch batch;
     private Character player;
 
     private Controller controller;
+
+    double oldX;
+    double oldY;
 
     @Override
     public void create() {
@@ -33,7 +41,8 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         genericCamera = new GenericCamera();
         super.create();
         map = maps.getMap(0);
-        renderer = new IsometricTiledMapRenderer(map);
+        //renderer = new IsometricTiledMapRenderer(map);
+        renderer = new OrthogonalTiledMapRenderer(map);
 
         batch = new SpriteBatch();
         player = new Character();
@@ -68,14 +77,48 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        int layer = 1;
+        Rectangle playerRect = player.getBoundingRectangle();
+
+
+
+
         renderer.setView(genericCamera.getCamera());
         renderer.render();
-        //cameraController(genericCamera.getCamera());
-        controller.controlEntity();
+        controller.controlCharacter();
         genericCamera.getCamera().update();
+
+        for (RectangleMapObject object : map.getLayers().get(layer).getObjects().getByType(RectangleMapObject.class)) {
+
+            Rectangle rect = ((object).getRectangle());
+
+
+            //System.out.println("player: "+ playerRect.getX() + "," + playerRect.getY() + ", Map: " + rect.getX() + "," + rect.getY());
+            //System.out.println("playerEntity: " + player.getEntity().getX() + "," + player.getEntity().getY());
+            //System.out.println("rectangle dim: " + rect.getWidth() + "," + rect.getHeight());
+            if (player.getRectangle().overlaps(rect)) {player.setPosition(oldX,oldY);
+               /* switch(player.getOldDirection()){
+                    case UP:player.move(Direction.DOWN,1.00);
+                        break;
+                    case DOWN:player.move(Direction.UP,1.00);
+                        break;
+                    case LEFT:player.move(Direction.RIGHT,1.00);
+                        break;
+                    case RIGHT:player.move(Direction.LEFT,1.00);
+                        break;
+                }
+
+            */}
+
+
+
+
+        }
 
         batch.begin();
         batch.draw(player.getTexture(), player.getX(), player.getY());
+        oldX = player.getX();
+        oldY = player.getY();
         batch.end();
 
         super.render();

@@ -2,6 +2,7 @@ package org.academiadecodigo.bootcamp.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
@@ -18,6 +19,7 @@ public class GameScreen extends AbstractScreen implements Screen {
     private TiledMap map;
     private IsometricTiledMapRenderer renderer;
     private GenericCamera genericCamera;
+    private Music gameMusic;
 
     public GameScreen(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
@@ -30,6 +32,9 @@ public class GameScreen extends AbstractScreen implements Screen {
 
         map = maps.getMap(0);
         renderer = new IsometricTiledMapRenderer(map);
+        gameMusic = Gdx.audio.newMusic(Gdx.files.internal("SuspenseMusic.wav"));
+        gameMusic.setLooping(true);
+        gameMusic.play();
 
     }
 

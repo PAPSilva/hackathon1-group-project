@@ -34,16 +34,24 @@ public class MyGdxGame extends Game {
 
 		if (abstractScreen == null) {
 			abstractScreen = screenMap.get(screen);
+
+		}
+
+		if (abstractScreen instanceof GameScreen) {
+			menuMusic.stop();
 		}
 		this.setScreen(abstractScreen);
+
 	}
 
 	private void createScreenMap() {
+
 
 		screenMap = new HashMap<Integer, AbstractScreen>();
 		screenMap.put(ScreenOptions.MENU.getOption(), new MenuScreen(this));
 		screenMap.put(ScreenOptions.PREFERENCES.getOption(), new PreferencesScreen(this));
 		screenMap.put(ScreenOptions.APPLICATION.getOption(), new GameScreen(this));
 		screenMap.put(ScreenOptions.ENDGAME.getOption(), new EndScreen(this));
+
 	}
 }

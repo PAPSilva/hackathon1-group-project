@@ -24,4 +24,12 @@ public abstract class AbstractCamera {
         camera.viewportHeight = height;
         camera.viewportWidth = width;
     }
+
+    public double getWidth() {
+        return camera.viewportWidth;
+    }
+
+    public double getHeight() {
+        return camera.viewportHeight;
+    }
 }

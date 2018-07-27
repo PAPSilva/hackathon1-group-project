@@ -79,8 +79,18 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public void move(Direction direction, double amount) {
-        double dx = direction.getX() * amount;
-        double dy = direction.getY() * amount;
 
+        x += direction.getX() * amount;
+        y += direction.getY() * amount;
+    }
+
+    @Override
+    public double getX() {
+        return x;
+    }
+
+    @Override
+    public double getY() {
+        return y;
     }
 }

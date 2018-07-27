@@ -1,6 +1,7 @@
 package org.academiadecodigo.bootcamp.simulation.entities;
 
 import org.academiadecodigo.bootcamp.simulation.fireables.Firable;
+import org.academiadecodigo.bootcamp.simulation.projectables.Projectable;
 
 public abstract class AbstractEntity implements Entity {
 
@@ -9,6 +10,8 @@ public abstract class AbstractEntity implements Entity {
     private Firable weapon;
     private double x;
     private double y;
+    private boolean dead;
+    private double orientation;
 
     // TODO implement
 
@@ -24,8 +27,8 @@ public abstract class AbstractEntity implements Entity {
     }
 
     @Override
-    public void shoot(Hitable hitObject) {
-        // TODO
+    public Projectable shoot() {
+        return weapon.fire();
     }
 
     @Override
@@ -92,5 +95,19 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public double getY() {
         return y;
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    @Override
+    public void setOrientation(double orientation) {
+        this.orientation = orientation;
+    }
+
+    @Override
+    public double getOrientation() {
+        return orientation;
     }
 }

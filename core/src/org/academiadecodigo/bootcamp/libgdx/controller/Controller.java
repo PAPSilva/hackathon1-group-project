@@ -2,6 +2,7 @@ package org.academiadecodigo.bootcamp.libgdx.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.utils.Array;
 import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
 import org.academiadecodigo.bootcamp.libgdx.sprites.projectables.ProjectileFactory;
 import org.academiadecodigo.bootcamp.libgdx.sprites.projectables.ProjectileSprite;
@@ -17,7 +18,7 @@ public class Controller {
 
     private final double distantAmount = 1.0;
 
-    public void controlEntity(List<ProjectileSprite> projectiles) {
+    public void controlEntity(Array<ProjectileSprite> projectiles) {
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             move(Direction.UP);

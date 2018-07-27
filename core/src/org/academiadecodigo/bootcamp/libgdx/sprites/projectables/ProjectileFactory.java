@@ -20,6 +20,7 @@ public class ProjectileFactory {
                 ProjectileSpriteTypes.get(projectable.getProjectableType()).getTextureFile()
         );
         projectileSprite.rotate( (float) Math.atan2(projectable.getDirectionY(), projectable.getDirectionX()));
+        projectileSprite.setSize(10.0f, 10.0f);
 
         projectileSprite.setPosition(
                 (float) (x + directionX * muzzleDist + projectileSprite.getWidth()),

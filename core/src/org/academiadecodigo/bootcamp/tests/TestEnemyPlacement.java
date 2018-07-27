@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+import com.badlogic.gdx.utils.Array;
 import org.academiadecodigo.bootcamp.libgdx.controller.Controller;
 import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
 import org.academiadecodigo.bootcamp.libgdx.sprites.projectables.ProjectileSprite;
@@ -31,8 +32,8 @@ public class TestEnemyPlacement extends ApplicationAdapter {
     private SpriteBatch batch;
     private Character player;
 
-    private List<Character> enemies = new ArrayList<Character>();
-    private List<ProjectileSprite> projectiles = new ArrayList<ProjectileSprite>();
+    private Array<Character> enemies = new Array<Character>();
+    private Array<ProjectileSprite> projectiles = new Array<ProjectileSprite>();
 
     private Controller controller;
 

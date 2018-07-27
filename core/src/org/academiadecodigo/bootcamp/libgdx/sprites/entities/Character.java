@@ -11,7 +11,7 @@ public class Character extends AbstractSprite {
     private RandomAI randomAI = null;
 
     private AIType aiType = AIType.RANDOM;
-    private final int RANDOM_TURN_MAX = 60;
+    private final int RANDOM_TURN_MAX = 6000;
     private final double RANDOM_TURN_AMOUNT = 1.5;
 
     public void setEntity(Entity entity) {
@@ -114,4 +114,7 @@ public class Character extends AbstractSprite {
         }
     }
 
+    public Entity getEntity() {
+        return entity;
+    }
 }

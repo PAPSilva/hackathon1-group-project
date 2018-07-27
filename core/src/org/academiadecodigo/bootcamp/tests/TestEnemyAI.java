@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import org.academiadecodigo.bootcamp.libgdx.controller.Controller;
 import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
 import org.academiadecodigo.bootcamp.libgdx.sprites.projectables.ProjectileSprite;
@@ -17,9 +18,9 @@ import org.academiadecodigo.bootcamp.simulation.maps.Map;
 import org.academiadecodigo.bootcamp.simulation.maps.MapImpl;
 import org.academiadecodigo.bootcamp.simulation.projectables.ProjectableType;
 import org.academiadecodigo.bootcamp.views.camera.GenericCamera;
+import com.badlogic.gdx.utils.Array;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 
 public class TestEnemyAI extends ApplicationAdapter {
 
@@ -31,13 +32,13 @@ public class TestEnemyAI extends ApplicationAdapter {
     private SpriteBatch batch;
     private Character player;
 
-    private List<Character> enemies = new ArrayList<Character>();
-    private List<ProjectileSprite> projectiles = new ArrayList<ProjectileSprite>();
+    private Array<Character> enemies = new Array<Character>();
+    private Array<ProjectileSprite> projectiles = new Array<ProjectileSprite>();
 
     private Controller controller;
 
-    private final int ENEMY_NUMBER = 10;
-
+    private final int ENEMY_NUMBER = 1;
+    private final double MAX_PROJECTILE_DIST = 400000.0;
 
     @Override
     public void create() {
@@ -103,8 +104,50 @@ public class TestEnemyAI extends ApplicationAdapter {
             batch.draw(enemy.getTexture(), enemy.getX(), enemy.getY());
         }
 
-        for(ProjectileSprite projectile : projectiles) {
+        Rectangle projectileRect;
+        Rectangle enemyRect;
+
+        Iterator<ProjectileSprite> projectableIterator = projectiles.iterator();
+        while(projectableIterator.hasNext()) {
+
+            ProjectileSprite projectile = projectableIterator.next();
+
+            // Check distance ot player and remove if high
+            double dx = player.getX() - projectile.getX();
+            double dy = player.getY() - projectile.getY();
+            if(dx*dx + dy*dy > MAX_PROJECTILE_DIST) {
+                projectableIterator.remove();
+                continue;
+            }
+
             projectile.move();
+            projectileRect = projectile.getBoundingRectangle();
+            projectileRect.setPosition(
+                    projectile.getX(),
+                    projectile.getY()
+            );
+
+            Iterator<Character> enemyIterator = enemies.iterator();
+            while(enemyIterator.hasNext()) {
+
+                Character enemy = enemyIterator.next();
+
+                enemyRect = enemy.getBoundingRectangle();
+                enemyRect.setPosition(
+                        (float) enemy.getEntity().getX(),
+                        (float) enemy.getEntity().getY()
+                );
+
+                if(projectileRect.overlaps(enemyRect)) {
+
+                    enemyIterator.remove();
+                    projectableIterator.remove();
+                    continue;
+
+                }
+
+            }
+
             batch.draw(projectile.getTexture(), projectile.getX(), projectile.getY());
         }
 
@@ -136,6 +179,10 @@ public class TestEnemyAI extends ApplicationAdapter {
 
             enemy.setPosition(
                     Math.random() * Gdx.graphics.getWidth(),
+                    Math.random() * Gdx.graphics.getHeight()
+            );
+            enemy.setPosition(
+                    player.getEntity().getX(),
                     Math.random() * Gdx.graphics.getHeight()
             );
 

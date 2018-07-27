@@ -23,8 +23,11 @@ public abstract class AbstractSprite extends Sprite {
     }
 
     public void setTextureFile(String textureFile){
+
         this.textureFile = textureFile;
         texture = new Texture(Gdx.files.internal(textureFile));
+
+        setSize(texture.getWidth(), texture.getHeight());
     }
 
 

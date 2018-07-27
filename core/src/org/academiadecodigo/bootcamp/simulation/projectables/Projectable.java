@@ -8,4 +8,18 @@ public interface Projectable {
 
     void setDamage(int damage);
 
+    int getDamage();
+
+    void setDirection(double dx, double dy);
+
+    void setVelocity(double velocity);
+
+    ProjectableType getProjectableType();
+
+    double getDirectionX();
+
+    double getDirectionY();
+
+    double getVelocity();
+
 }

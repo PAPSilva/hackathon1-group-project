@@ -4,35 +4,38 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import org.academiadecodigo.bootcamp.libgdx.controller.Controller;
 import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
-import org.academiadecodigo.bootcamp.simulation.entities.Direction;
+import org.academiadecodigo.bootcamp.libgdx.sprites.projectables.ProjectileSprite;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
 import org.academiadecodigo.bootcamp.simulation.entities.EntityImpl;
+import org.academiadecodigo.bootcamp.simulation.fireables.Firable;
+import org.academiadecodigo.bootcamp.simulation.fireables.Weapon;
 import org.academiadecodigo.bootcamp.simulation.maps.Map;
 import org.academiadecodigo.bootcamp.simulation.maps.MapImpl;
+import org.academiadecodigo.bootcamp.simulation.projectables.ProjectableType;
 import org.academiadecodigo.bootcamp.views.camera.GenericCamera;
 
-public class TestCharacterAndCameraMovement extends ApplicationAdapter {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TestCharacterShooting extends ApplicationAdapter {
 
     private Map maps;
     private TiledMap map;
-    //private IsometricTiledMapRenderer renderer;
-    private OrthogonalTiledMapRenderer renderer;
+    private IsometricTiledMapRenderer renderer;
     private GenericCamera genericCamera;
 
     private SpriteBatch batch;
     private Character player;
 
-    private Controller controller;
+    private List<Character> enemies = new ArrayList<Character>();
+    private List<ProjectileSprite> projectiles = new ArrayList<ProjectileSprite>();
 
-    double oldX;
-    double oldY;
+    private Controller controller;
 
     @Override
     public void create() {
@@ -41,12 +44,15 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         genericCamera = new GenericCamera();
         super.create();
         map = maps.getMap(0);
-        //renderer = new IsometricTiledMapRenderer(map);
-        renderer = new OrthogonalTiledMapRenderer(map);
+        renderer = new IsometricTiledMapRenderer(map);
 
         batch = new SpriteBatch();
         player = new Character();
         Entity playertEntity = new EntityImpl();
+        Firable weapon = new Weapon();
+        weapon.setProjectableType(ProjectableType.BULLET);
+        weapon.setAmmo(5000);
+        playertEntity.setWeapon(weapon);
         player.setEntity(playertEntity);
         player.setTextureFile("hairyMonster.png");
 
@@ -77,50 +83,18 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        int layer = 1;
-        Rectangle playerRect = player.getBoundingRectangle();
-
-
-
-
         renderer.setView(genericCamera.getCamera());
         renderer.render();
-        controller.controlEntity(null);
+        //cameraController(genericCamera.getCamera());
+        controller.controlEntity(projectiles);
         genericCamera.getCamera().update();
-
-        for (RectangleMapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
-
-            Rectangle rect = ((object).getRectangle());
-
-
-            //System.out.println("player: "+ playerRect.getX() + "," + playerRect.getY() + ", Map: " + rect.getX() + "," + rect.getY());
-            //System.out.println("playerEntity: " + player.getEntity().getX() + "," + player.getEntity().getY());
-            //System.out.println("rectangle dim: " + rect.getWidth() + "," + rect.getHeight());
-            if (player.getRectangle().overlaps(rect)) {
-                switch(player.getOldDirection()){
-                    case UP:player.move(Direction.DOWN,5.00);
-                        break;
-                    case DOWN:player.move(Direction.UP,5.00);
-                        break;
-                    case LEFT:player.move(Direction.RIGHT,5.00);
-                        break;
-                    case RIGHT:player.move(Direction.LEFT,5.00);
-                        break;
-                }
-
-            }
-
-
-
-
-
-
-        }
 
         batch.begin();
         batch.draw(player.getTexture(), player.getX(), player.getY());
-        oldX = player.getRectangle().getX();
-        oldY = player.getRectangle().getY();
+        for(ProjectileSprite projectile : projectiles) {
+            projectile.move();
+            batch.draw(projectile.getTexture(), projectile.getX(), projectile.getY());
+        }
         batch.end();
 
         super.render();

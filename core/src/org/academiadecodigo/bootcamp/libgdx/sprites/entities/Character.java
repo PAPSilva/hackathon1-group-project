@@ -3,9 +3,10 @@ package org.academiadecodigo.bootcamp.libgdx.sprites.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import org.academiadecodigo.bootcamp.libgdx.sprites.AbstractSprite;
 import org.academiadecodigo.bootcamp.simulation.entities.Direction;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
-import org.academiadecodigo.bootcamp.libgdx.sprites.entities.AbstractSprite;
+import org.academiadecodigo.bootcamp.simulation.projectables.Projectable;
 
 public class Character extends AbstractSprite {
 
@@ -13,6 +14,7 @@ public class Character extends AbstractSprite {
     private Texture texture;
     private String textureFile;
     private Direction oldDirection;
+
     // TODO implement libgdx
 
 
@@ -71,6 +73,27 @@ public class Character extends AbstractSprite {
         rect.setY((float) entity.getY());
 
         return rect;
+    }
+
+    public Projectable shoot() {
+        return entity.shoot();
+    }
+
+    public void rotate(Direction direction) {
+        entity.setOrientation(direction.getAngle());
+    }
+
+
+    public double getOrientation() {
+        return entity.getOrientation();
+    }
+
+    public void hit(int damage) {
+        entity.hit(damage);
+    }
+
+    public boolean isDead() {
+        return entity.getHP() == 0;
     }
 
 }

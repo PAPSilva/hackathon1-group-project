@@ -8,7 +8,6 @@ public class Weapon implements Firable {
 
     private ProjectableType projectableType;
     private int ammo;
-    private int damage;
 
     @Override
     public void setAmmo(int ammoAmount) {
@@ -22,9 +21,18 @@ public class Weapon implements Firable {
 
     @Override
     public Projectable fire() {
+
+        if(ammo == 0) {
+            return null;
+        }
+
         Projectable projectile = new Projectile();
         projectile.setDamage(projectableType.getDamage());
-        return new Projectile();
+        ((Projectile) projectile).setProjectableType(projectableType); // TODO why the casting?
+        projectile.setVelocity(projectableType.getVelocity());
+        ammo--;
+
+        return projectile;
     }
 
     @Override

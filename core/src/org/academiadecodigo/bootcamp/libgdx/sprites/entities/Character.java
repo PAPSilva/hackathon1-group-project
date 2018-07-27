@@ -1,22 +1,17 @@
-package org.academiadecodigo.bootcamp.entities;
+package org.academiadecodigo.bootcamp.libgdx.sprites.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import org.academiadecodigo.bootcamp.simulation.entities.Direction;
 import org.academiadecodigo.bootcamp.simulation.entities.Entity;
+import org.academiadecodigo.bootcamp.libgdx.sprites.entities.AbstractSprite;
 
-public class Character extends Sprite {
+public class Character extends AbstractSprite {
 
     private Entity entity;
     private Texture texture;
     private String textureFile;
     // TODO implement libgdx
-
-
-    public Entity getEntity() {
-        return entity;
-    }
 
     public void setEntity(Entity entity) {
         this.entity = entity;

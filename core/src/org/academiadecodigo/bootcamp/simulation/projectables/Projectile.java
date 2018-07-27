@@ -1,4 +1,6 @@
-package org.academiadecodigo.bootcamp.simulation.entities;
+package org.academiadecodigo.bootcamp.simulation.projectables;
+
+import org.academiadecodigo.bootcamp.simulation.entities.Hitable;
 
 public class Projectile implements Projectable {
 

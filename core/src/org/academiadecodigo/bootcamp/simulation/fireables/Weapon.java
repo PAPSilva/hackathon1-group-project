@@ -1,23 +1,34 @@
 package org.academiadecodigo.bootcamp.simulation.fireables;
 
-public class Weapon {
+import org.academiadecodigo.bootcamp.simulation.projectables.Projectable;
+import org.academiadecodigo.bootcamp.simulation.projectables.ProjectableType;
+import org.academiadecodigo.bootcamp.simulation.projectables.Projectile;
 
+public class Weapon implements Firable {
+
+    private ProjectableType projectableType;
     private int ammo;
     private int damage;
 
-    public int getDamage() {
-        return damage;
+    @Override
+    public void setAmmo(int ammoAmount) {
+        ammo = ammoAmount;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
+    @Override
     public int getAmmo() {
         return ammo;
     }
 
-    public void setAmmo(int ammo) {
-        this.ammo = ammo;
+    @Override
+    public Projectable fire() {
+        Projectable projectile = new Projectile();
+        projectile.setDamage(projectableType.getDamage());
+        return new Projectile();
+    }
+
+    @Override
+    public void setProjectableType(ProjectableType projectableType) {
+        this.projectableType = projectableType;
     }
 }

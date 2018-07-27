@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-import org.academiadecodigo.bootcamp.entities.Character;
+import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
 
 import java.util.Iterator;
 

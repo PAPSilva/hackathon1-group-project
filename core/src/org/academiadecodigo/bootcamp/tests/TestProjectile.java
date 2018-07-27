@@ -2,8 +2,8 @@ package org.academiadecodigo.bootcamp.tests;
 
 import org.academiadecodigo.bootcamp.simulation.entities.EntityImpl;
 import org.academiadecodigo.bootcamp.simulation.entities.Hitable;
-import org.academiadecodigo.bootcamp.simulation.entities.Projectable;
-import org.academiadecodigo.bootcamp.simulation.entities.Projectile;
+import org.academiadecodigo.bootcamp.simulation.projectables.Projectable;
+import org.academiadecodigo.bootcamp.simulation.projectables.Projectile;
 
 public class TestProjectile {
 

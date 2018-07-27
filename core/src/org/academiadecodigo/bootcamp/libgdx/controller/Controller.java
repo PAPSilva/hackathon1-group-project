@@ -1,8 +1,8 @@
-package org.academiadecodigo.bootcamp.controller;
+package org.academiadecodigo.bootcamp.libgdx.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import org.academiadecodigo.bootcamp.entities.Character;
+import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
 import org.academiadecodigo.bootcamp.simulation.entities.Direction;
 import org.academiadecodigo.bootcamp.views.camera.GenericCamera;
 

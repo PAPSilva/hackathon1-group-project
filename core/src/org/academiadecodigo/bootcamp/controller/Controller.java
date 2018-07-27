@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp.Controller;
+package org.academiadecodigo.bootcamp.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

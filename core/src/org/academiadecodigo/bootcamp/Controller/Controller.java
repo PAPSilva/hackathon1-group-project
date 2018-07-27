@@ -3,9 +3,7 @@ package org.academiadecodigo.bootcamp.Controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import org.academiadecodigo.bootcamp.entities.Character;
-import org.academiadecodigo.bootcamp.simulation.entities.Entity;
 import org.academiadecodigo.bootcamp.simulation.entities.Direction;
-import org.academiadecodigo.bootcamp.simulation.entities.Hitable;
 import org.academiadecodigo.bootcamp.views.camera.GenericCamera;
 
 public class Controller {

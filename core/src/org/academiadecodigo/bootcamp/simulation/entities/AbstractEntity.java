@@ -82,9 +82,6 @@ public abstract class AbstractEntity implements Entity {
 
         x += direction.getX() * amount;
         y += direction.getY() * amount;
-
-        System.out.println("Entity: (" + x + "," + y + ")");
-
     }
 
     @Override

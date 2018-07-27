@@ -2,8 +2,6 @@ package org.academiadecodigo.bootcamp.tests;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -43,27 +41,15 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         player.setEntity(playertEntity);
         player.setTextureFile("hairyMonster.png");
 
-        // Center on camera
-        System.out.println(
-                "Camera before " + genericCamera.getCamera().position.x + ","
-                        + genericCamera.getCamera().position.y
+        // Center charater on camera
+        player.setPosition(
+                Gdx.graphics.getWidth()*0.5 - player.getTexture().getWidth()*0.5,
+                Gdx.graphics.getHeight()*0.5 - player.getTexture().getHeight()*0.5
         );
-        genericCamera.getCamera().position.set(
-                (float) (playertEntity.getX() - Gdx.graphics.getWidth()*0.5),
-                (float) (playertEntity.getY() - Gdx.graphics.getHeight()*0.5),
-                genericCamera.getCamera().position.z);
-        System.out.println(
-                "Camera after " + genericCamera.getCamera().position.x + ","
-                        + genericCamera.getCamera().position.y
-        );
-
 
         controller = new Controller();
         controller.setCharacter(player);
         controller.setCamera(genericCamera);
-
-        // Test set position of character
-
 
     }
 
@@ -89,7 +75,7 @@ public class TestCharacterAndCameraMovement extends ApplicationAdapter {
         genericCamera.getCamera().update();
 
         batch.begin();
-        batch.draw(player.getTexture(), 0, 0);
+        batch.draw(player.getTexture(), player.getX(), player.getY());
         batch.end();
 
         super.render();

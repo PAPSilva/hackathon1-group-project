@@ -37,10 +37,6 @@ public class Character extends Sprite {
         texture = new Texture(Gdx.files.internal(textureFile));
     }
 
-    public String getTextureFile() {
-        return textureFile;
-    }
-
     public void move(Direction direction, double amount) {
         entity.move(direction, amount);
     }
@@ -52,5 +48,7 @@ public class Character extends Sprite {
 
         move(Direction.RIGHT, dx);
         move(Direction.UP, dy);
+
+        super.setPosition((float) x, (float) y);
     }
 }

@@ -5,8 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import org.academiadecodigo.bootcamp.libgdx.controller.Controller;
 import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
 import org.academiadecodigo.bootcamp.libgdx.sprites.projectables.ProjectileSprite;
@@ -26,7 +26,7 @@ public class TestEnemyAI extends ApplicationAdapter {
 
     private Map maps;
     private TiledMap map;
-    private IsometricTiledMapRenderer renderer;
+    private OrthogonalTiledMapRenderer renderer;
     private GenericCamera genericCamera;
 
     private SpriteBatch batch;
@@ -47,7 +47,7 @@ public class TestEnemyAI extends ApplicationAdapter {
         genericCamera = new GenericCamera();
         super.create();
         map = maps.getMap(0);
-        renderer = new IsometricTiledMapRenderer(map);
+        renderer = new OrthogonalTiledMapRenderer(map);
 
         batch = new SpriteBatch();
         player = new Character();
@@ -57,7 +57,11 @@ public class TestEnemyAI extends ApplicationAdapter {
         weapon.setAmmo(5000);
         playertEntity.setWeapon(weapon);
         player.setEntity(playertEntity);
-        player.setTextureFile("hairyMonster.png");
+        player.setTextureFile("player/player_front.png");
+        player.setUp("player/player_back.png");
+        player.setLeft("player/player_leftside.png");
+        player.setRight("player/player_rightside.png");
+        player.setDown("player/player_front.png");
 
         // Center character on camera
         player.setPosition(
@@ -175,7 +179,11 @@ public class TestEnemyAI extends ApplicationAdapter {
             weapon.setAmmo(5000);
             enemyEntity.setWeapon(weapon);
             enemy.setEntity(enemyEntity);
-            enemy.setTextureFile("hairyMonster.png");
+            enemy.setTextureFile("enemy/enemy_front.png");
+            enemy.setUp("enemy/enemy_back.png");
+            enemy.setLeft("enemy/enemy_leftside.png");
+            enemy.setRight("enemy/enemy_rightside.png");
+            enemy.setDown("enemy/enemy_front.png");
 
             enemy.setPosition(
                     Math.random() * Gdx.graphics.getWidth(),
@@ -189,7 +197,5 @@ public class TestEnemyAI extends ApplicationAdapter {
             enemies.add(enemy);
 
         }
-
-
     }
 }

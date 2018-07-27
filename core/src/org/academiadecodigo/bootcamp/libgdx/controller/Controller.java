@@ -3,13 +3,12 @@ package org.academiadecodigo.bootcamp.libgdx.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.math.Vector3;
 import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
 import org.academiadecodigo.bootcamp.libgdx.sprites.projectables.ProjectileFactory;
 import org.academiadecodigo.bootcamp.libgdx.sprites.projectables.ProjectileSprite;
 import org.academiadecodigo.bootcamp.simulation.entities.Direction;
 import org.academiadecodigo.bootcamp.views.camera.GenericCamera;
-
-import java.util.List;
 
 public class Controller {
 
@@ -48,10 +47,17 @@ public class Controller {
         character.move(direction, distantAmount);
         character.rotate(direction);
 
-        // Move camera TODO move to camera and invoke method here
         double dx = direction.getX() * distantAmount;
         double dy = direction.getY() * distantAmount;
-        camera.getCamera().translate((float) dx, (float) dy);
+        camera.getCamera().setToOrtho(false);
+        Vector3 vec = (new Vector3(
+                (float) character.getEntity().getX(),
+                (float) character.getEntity().getY(),
+                0.0f)
+        );
+        camera.getCamera().position.set(vec);
+        System.out.println("Entity: " + character.getX() + "," + character.getY());
+        System.out.println("Camera: " + camera.getCamera().position.x + "," + camera.getCamera().position.y);
     }
 
     public void setCharacter(Character character) {

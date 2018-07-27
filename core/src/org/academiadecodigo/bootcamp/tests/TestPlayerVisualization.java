@@ -2,6 +2,7 @@ package org.academiadecodigo.bootcamp.tests;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import org.academiadecodigo.bootcamp.libgdx.sprites.entities.Character;
@@ -18,8 +19,7 @@ public class TestPlayerVisualization extends ApplicationAdapter {
         player = new Character();
         enemy = new Character();
 
-        player.setTextureFile("hairyMonster.png");
-        enemy.setTextureFile("girl.png");
+        player.setTextureFile("player/player_front.png");
     }
 
     @Override
@@ -28,7 +28,6 @@ public class TestPlayerVisualization extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(player.getTexture(), 0, 0);
-        batch.draw(enemy.getTexture(), 200, 200);
         batch.end();
     }
 
